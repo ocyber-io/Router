@@ -36,7 +36,7 @@ sudo cp ./config-production.yaml /usr/local/etc/router.yaml
 sudo cp ./config-staging.yaml /usr/local/etc/router.yaml
 
 # create linux service
-sudo cp router.service/etc/systemd/system/router.service
+sudo cp router.service /etc/systemd/system/router.service
 sudo systemctl-daemon-reload
 
 # enable service to start it automatically
