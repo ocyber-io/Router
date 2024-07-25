@@ -1,0 +1,8 @@
+[Unit]
+Wants=network.target
+[Service]
+WorkingDirectory=/usr/local/bin
+ExecStart=/usr/local/bin/router-server --config /usr/local/etc/router.yaml
+Restart=always
+[Install]
+WantedBy=multi-user.target

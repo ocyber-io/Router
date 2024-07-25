@@ -52,7 +52,7 @@ func Build() error {
 	if err := os.MkdirAll("bin", 0755); err != nil {
 		return err
 	}
-	if err := mageutil.RunDir(context.Background(), "cmd/server", "go build -o ../../bin/livekit-server"); err != nil {
+	if err := mageutil.RunDir(context.Background(), "cmd/server", "go build -o ./bin/router-server"); err != nil {
 		return err
 	}
 
