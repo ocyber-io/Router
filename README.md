@@ -68,3 +68,37 @@ Ensure the paths are correct and replace with your actual project directory.
 
 ### DNS
 #### Ensure that you have 2 domain names pointing to the instance public ip or with loadbalancing one for TCP/TURN other for HTTPS for Router.
+
+### Reverse Proxy Server
+use aws loadbalancer for reverse proxy or you can use caddy
+
+caddy configuration
+```sh
+sudo mkdir -p /opt/caddy
+
+sudo cp ./proxy-server/docker-compose.yaml /opt/caddy/docker-compose.yaml
+
+
+# For Production
+sudo cp ./proxy-server/caddy-production.yaml /opt/caddy/caddy.yaml
+
+# For Staging
+sudo cp ./proxy-server/caddy-staging.yaml /opt/caddy/caddy.yaml
+
+
+
+# create linux service
+sudo cp ./proxy-server/caddy.service /etc/systemd/system/caddy.service
+sudo systemctl-daemon-reload
+
+# enable service to start it automatically
+sudo systemctl enable caddy.service 
+sudo systemctl start caddy.service
+
+# to restart encoder
+sudo systemctl restart caddy.service
+
+
+# run this command to check the service logs
+journalctl -u caddy.service -f
+```

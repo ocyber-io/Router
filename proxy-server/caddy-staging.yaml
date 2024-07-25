@@ -1,0 +1,52 @@
+logging:
+  logs:
+    default:
+      level: INFO
+storage:
+  "module": "file_system"
+  "root": "/data"
+apps:
+  tls:
+    certificates:
+      automate:
+        - cohost.live.staging.reup.live
+        - cohost.transcode.staging.reup.live
+  layer4:
+    servers:
+      main:
+        listen: [":443"]
+        routes:
+          - match:
+            - tls:
+                sni:
+                  - "cohost.transcode.staging.reup.live"
+            handle:
+              - handler: tls
+              - handler: proxy
+                upstreams:
+                  - dial: ["172.31.34.59:5349"] # vm private ip should be here
+          - match:
+              - tls:
+                  sni:
+                    - "cohost.live.staging.reup.live"
+            handle:
+              - handler: tls
+                connection_policies:
+                  - alpn: ["http/1.1"]
+              - handler: proxy
+                upstreams:
+                  - dial: ["localhost:7880"]
+      rest:
+        listen: [":4443"]
+        routes:
+          - match:
+              - tls:
+                  sni:
+                    - "cohost.live.staging.reup.live"
+            handle:
+              - handler: tls
+                connection_policies:
+                  - alpn: ["http/1.1"]
+              - handler: proxy
+                upstreams:
+                  - dial: ["localhost:4099"]
