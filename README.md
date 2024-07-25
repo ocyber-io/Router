@@ -61,6 +61,7 @@ Ensure the paths are correct and replace with your actual project directory.
 ##### `443` - primary HTTPS and TURN/TLS
 ##### `80` - TLS issuance
 ##### `7881` - WebRTC over TCP
+##### `5349` - TURN/TLS TCP
 ##### `3478/UDP` - TURN/UDP
 ##### `50000-60000/UDP` - WebRTC over UDP
 
